@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <property name="schemaName" value="Test"></property>
+    <property name="author=" value="db-designer"></property>
+    <changeSet id="v1-01-01" author="${author}">
+    
+ <createTable schemaName="${schemaName}" tableName="OrderAlert">
+	<column name="OrderAlertId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="StockAlertmsg" type="VARCHAR(250)" />
+    
+     <column name="PhNum" type="BIGINT" />
+    
+     <column name="ProductName" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Restuarant">
+	<column name="RestuarantID" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="OwnerName" type="VARCHAR(250)" />
+    
+     <column name="OwnerPh" type="BIGINT" />
+    
+     <column name="RestuarantName" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Product">
+	<column name="ProductId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="ProductName" type="VARCHAR(250)" />
+    
+     <column name="ProductDescription" type="VARCHAR(250)" />
+    
+     <column name="ProductImage" type="VARCHAR(250)" />
+    
+     <column name="ProductType" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="PurchaseOrder">
+	<column name="PurchaseOrderId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="ProductName" type="VARCHAR(250)" />
+    
+     <column name="Discount" type="INTEGER" />
+    
+     <column name="PurchaseOrderDate" type="DATE" />
+    
+     <column name="Invoice" type="VARCHAR(250)" />
+    
+     <column name="TaxGSTAmount" type="INTEGER" />
+    
+     <column name="ExchangeDate" type="INTEGER" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Vendor">
+	<column name="VendorID" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="ProductName" type="VARCHAR(250)" />
+    
+     <column name="UnitsPurchased" type="INTEGER" />
+    
+     <column name="PricePerUnit" type="INTEGER" />
+    
+     <column name="VendorAddress" type="VARCHAR(250)" />
+    
+     <column name="VendorContact" type="BIGINT" />
+    
+     <column name="TotalPrice" type="INTEGER" />
+    
+     <column name="VendorName" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Document">
+	<column name="DocId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="FileType" type="VARCHAR(250)" />
+    
+     <column name="FileName" type="VARCHAR(250)" />
+    
+ 	<column name="Content" type="BINARY"/>
+	<column name="DocFileType" type="VARCHAR(100)"/>
+	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Inventory">
+    <column name="InventoryId" type="VARCHAR(250)" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="ExpirtyDate" type="DATE" />
+    
+     <column name="PurchasedDate" type="DATE" />
+    
+     <column name="VendorName" type="VARCHAR(250)" />
+    
+     <column name="CurrentStockUnits" type="INTEGER" />
+    
+     <column name="InStockUnits" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+	
+  <createTable schemaName="${schemaName}" tableName="InventoryStockalert">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="InventoryId" type="VARCHAR(250)" />
+	<column name="OrderAlertId" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="RestuarantProducts">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="RestuarantID" type="INTEGER" />
+	<column name="ProductId" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="VendorOrderdetails">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="VendorID" type="INTEGER" />
+	<column name="PurchaseOrderId" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="OrderAlertProductVendor">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="OrderAlertId" type="INTEGER" />
+	<column name="VendorID" type="INTEGER" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="ProductStock">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="ProductId" type="INTEGER" />
+	<column name="InventoryId" type="VARCHAR(250)" />
+</createTable>
+
+ 
+	<addForeignKeyConstraint baseTableName="InventoryStockalert" baseTableSchemaName="${schemaName}"  baseColumnNames="InventoryId" constraintName="OrderAlert_InventoryId_fk"
+	                                  referencedTableName="Inventory" referencedTableSchemaName="${schemaName}" referencedColumnNames="InventoryId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="InventoryStockalert" baseTableSchemaName="${schemaName}"  baseColumnNames="OrderAlertId" constraintName="OrderAlert_OrderAlertId_fk"
+	                                  referencedTableName="OrderAlert" referencedTableSchemaName="${schemaName}" referencedColumnNames="OrderAlertId"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="RestuarantProducts" baseTableSchemaName="${schemaName}"  baseColumnNames="RestuarantID" constraintName="Product_RestuarantID_fk"
+	                                  referencedTableName="Restuarant" referencedTableSchemaName="${schemaName}" referencedColumnNames="RestuarantID"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="RestuarantProducts" baseTableSchemaName="${schemaName}"  baseColumnNames="ProductId" constraintName="Product_ProductId_fk"
+	                                  referencedTableName="Product" referencedTableSchemaName="${schemaName}" referencedColumnNames="ProductId"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="VendorOrderdetails" baseTableSchemaName="${schemaName}"  baseColumnNames="VendorID" constraintName="PurchaseOrder_VendorID_fk"
+	                                  referencedTableName="Vendor" referencedTableSchemaName="${schemaName}" referencedColumnNames="VendorID"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="VendorOrderdetails" baseTableSchemaName="${schemaName}"  baseColumnNames="PurchaseOrderId" constraintName="PurchaseOrder_PurchaseOrderId_fk"
+	                                  referencedTableName="PurchaseOrder" referencedTableSchemaName="${schemaName}" referencedColumnNames="PurchaseOrderId"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="OrderAlertProductVendor" baseTableSchemaName="${schemaName}"  baseColumnNames="OrderAlertId" constraintName="Vendor_OrderAlertId_fk"
+	                                  referencedTableName="OrderAlert" referencedTableSchemaName="${schemaName}" referencedColumnNames="OrderAlertId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="OrderAlertProductVendor" baseTableSchemaName="${schemaName}"  baseColumnNames="VendorID" constraintName="Vendor_VendorID_fk"
+	                                  referencedTableName="Vendor" referencedTableSchemaName="${schemaName}" referencedColumnNames="VendorID"/>
+ 
+ 
+	<addForeignKeyConstraint baseTableName="ProductStock" baseTableSchemaName="${schemaName}"  baseColumnNames="ProductId" constraintName="Inventory_ProductId_fk"
+	                                  referencedTableName="Product" referencedTableSchemaName="${schemaName}" referencedColumnNames="ProductId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="ProductStock" baseTableSchemaName="${schemaName}"  baseColumnNames="InventoryId" constraintName="Inventory_InventoryId_fk"
+	                                  referencedTableName="Inventory" referencedTableSchemaName="${schemaName}" referencedColumnNames="InventoryId"/>
+ 
+	
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+	    </changeSet>
+</databaseChangeLog>
